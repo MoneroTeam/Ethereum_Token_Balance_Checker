@@ -13,11 +13,19 @@ export default function BalanceDisplay() {
   }
 
   if (state.balance === null) {
-    return <div />;
+    if (state.failed) {
+      return (
+        <Segment basic>
+          <p>Failed to Fetch Balance</p>
+        </Segment>
+      );
+    } else {
+      return <div />;
+    }
   } else {
     return (
       <Segment basic>
-        <p className="balance">
+        <p>
           Your <span className="highlight">{state.symbol}</span> Balance is:{" "}
           <span className="highlight">{state.balance}</span>
         </p>

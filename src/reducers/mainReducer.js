@@ -5,6 +5,11 @@ import {
 } from "../constants/actions";
 export const mainReducer = (state, action) => {
   switch (action.type) {
+    case IS_FETCHING:
+      return {
+        ...state,
+        loading: true
+      };
     case UPDATE_BALANCE:
       const { symbol, balance } = action.payload;
       return {
@@ -13,14 +18,10 @@ export const mainReducer = (state, action) => {
         symbol,
         balance
       };
-    case IS_FETCHING:
-      return {
-        ...state,
-        loading: true
-      };
     case FETCH_FAILED:
       return {
         ...state,
+        loading: false,
         failed: true
       };
     default:
