@@ -1,0 +1,21 @@
+// spacing
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 32px;
+$space-xl: 64px;
+
+body {
+  background: linear-gradient(225deg, #473b7b 0%, #3584a7 50.91%, #30d2be 100%);
+}
+
+#root {
+  padding-top: $space-xl;
+  padding-bottom: $space-xl;
+}
+
+.main {
+  background: white;
+  padding: $space-lg;
+  box-shadow: 0 0 6px 0 rgba(51, 51, 51, 0.5);
+}

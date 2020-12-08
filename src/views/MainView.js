@@ -1,13 +1,13 @@
 import React from "react";
-import Form from "../components/Form";
+import AddressForm from "../components/AddressForm";
 import BalanceDisplay from "../components/BalanceDisplay";
 import { BalanceContextProvider } from "../contexts/balanceContext";
 
 export default function MainView() {
   return (
     <BalanceContextProvider>
-      <div>Balances</div>
-      <Form />
+      <h1>Token Balance Checker</h1>
+      <AddressForm />
       <BalanceDisplay />
     </BalanceContextProvider>
   );
