@@ -1,9 +1,14 @@
 import React, { useState, useContext } from "react";
 import { BalanceContext } from "../contexts/balanceContext";
-import getBalance from "../utils/getBalance";
+import getTokenAndBalance from "../utils/getTokenAndBalance";
 import { Segment, Form, Button } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
 import { utils as ethersUtil } from "ethers";
+import {
+  UPDATE_BALANCE,
+  IS_FETCHING,
+  FETCH_FAILED
+} from "../constants/actions";
 
 export default function AddressForm() {
   const [clicked, setClicked] = useState(false);
@@ -16,12 +21,18 @@ export default function AddressForm() {
   const submitForm = async formData => {
     console.log("submit");
     console.log(formData);
-    // dispatch({ type: "LOADING" });
-    // // const adr = "0xE1dd10E7639b824395cA5fF098E7C73b79552Ec5";
-    // const adr = "0xEc40e5D7aeD3B931F877c96C1cAE975F1DC94574";
-    // const balance = await getBalance(adr);
-    // console.log(balance);
-    // dispatch({ type: "UPDATE_BALANCE", balance });
+    dispatch({ type: IS_FETCHING });
+    let symbol, balance;
+    try {
+      [symbol, balance] = await getTokenAndBalance({
+        token: "0x58b6a8a3302369daec383334672404ee733ab239",
+        wallet: "0xEc40e5D7aeD3B931F877c96C1cAE975F1DC94574"
+      });
+      dispatch({ type: UPDATE_BALANCE, payload: { symbol, balance } });
+      console.log(symbol, balance);
+    } catch (e) {
+      dispatch({ type: FETCH_FAILED });
+    }
   };
 
   console.log("errors", errors);
