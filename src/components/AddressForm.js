@@ -19,14 +19,13 @@ export default function AddressForm() {
   });
 
   const submitForm = async formData => {
-    console.log("submit");
-    console.log(formData);
+    const { token, wallet } = formData;
     dispatch({ type: IS_FETCHING });
     let symbol, balance;
     try {
       [symbol, balance] = await getTokenAndBalance({
-        token: "0x58b6a8a3302369daec383334672404ee733ab239",
-        wallet: "0xEc40e5D7aeD3B931F877c96C1cAE975F1DC94574"
+        token,
+        wallet
       });
       dispatch({ type: UPDATE_BALANCE, payload: { symbol, balance } });
       console.log(symbol, balance);
@@ -34,8 +33,6 @@ export default function AddressForm() {
       dispatch({ type: FETCH_FAILED });
     }
   };
-
-  console.log("errors", errors);
 
   const formatCheck = input => {
     return ethersUtil.isAddress(input);
