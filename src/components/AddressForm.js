@@ -3,11 +3,15 @@ import { BalanceContext } from "../contexts/balanceContext";
 import getBalance from "../utils/getBalance";
 import { Segment, Form, Button } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
+import { utils as ethersUtil } from "ethers";
 
 export default function AddressForm() {
   const [clicked, setClicked] = useState(false);
   const [state, dispatch] = useContext(BalanceContext);
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange"
+  });
 
   const submitForm = async formData => {
     console.log("submit");
@@ -20,8 +24,10 @@ export default function AddressForm() {
     // dispatch({ type: "UPDATE_BALANCE", balance });
   };
 
-  const isEven = () => {
-    return true;
+  console.log("errors", errors);
+
+  const formatCheck = input => {
+    return ethersUtil.isAddress(input);
   };
 
   return (
@@ -31,16 +37,30 @@ export default function AddressForm() {
           <Form.Field width={6}>
             <input
               name="token"
-              placeholder="Enter Wallet Address"
-              ref={register}
+              placeholder="Token Address"
+              ref={register({
+                required: true,
+                validate: formatCheck
+              })}
             />
+            {errors.token &&
+              errors.token.type === "validate" && (
+                <div className="error">Please use a valid Ethereum address</div>
+              )}
           </Form.Field>
           <Form.Field width={6}>
             <input
               name="wallet"
-              placeholder="Enter Wallet Address"
-              ref={register}
+              placeholder="Wallet Adress"
+              ref={register({
+                required: true,
+                validate: formatCheck
+              })}
             />
+            {errors.wallet &&
+              errors.wallet.type === "validate" && (
+                <div className="error">Please use a valid Ethereum address</div>
+              )}
           </Form.Field>
           <Form.Field width={4}>
             <Button fluid primary>
