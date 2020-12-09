@@ -16,7 +16,7 @@ export default function AddressForm() {
   const [validAddress, setValidAddress] = useState("");
   const [validEns, setValidEns] = useState("");
   const [state, dispatch] = useContext(BalanceContext);
-  const { register, handleSubmit, watch, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     reValidateMode: "onChange"
   });

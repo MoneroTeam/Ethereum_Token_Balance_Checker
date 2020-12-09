@@ -1,4 +1,4 @@
-import { providers, utils } from "ethers";
+import { providers } from "ethers";
 
 export async function getAddressFromEns(ens) {
   const provider = providers.getDefaultProvider();
