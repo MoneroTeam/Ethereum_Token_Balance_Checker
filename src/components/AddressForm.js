@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { BalanceContext } from "../contexts/balanceContext";
 import getTokenAndBalance from "../utils/getTokenAndBalance";
+import { getAddressFromENS, getENSFromAddress } from "../utils/ensLookup";
 import { Segment, Form, Button } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
 import { utils as ethersUtil } from "ethers";
@@ -14,8 +15,8 @@ export default function AddressForm() {
   const [clicked, setClicked] = useState(false);
   const [state, dispatch] = useContext(BalanceContext);
   const { register, handleSubmit, watch, errors } = useForm({
-    mode: "onChange",
-    reValidateMode: "onChange"
+    mode: "onBlur",
+    reValidateMode: "onBlur"
   });
 
   const submitForm = async formData => {
@@ -33,7 +34,16 @@ export default function AddressForm() {
     }
   };
 
-  const formatCheck = input => {
+  const checkENS = async () => {
+    console.log("checkENS");
+    let adr = await getAddressFromENS("0x2.eth");
+    console.log(adr);
+  };
+
+  // checkENS();
+
+  const formatCheck = async input => {
+    console.log(await getAddressFromENS(input));
     return ethersUtil.isAddress(input);
   };
 
