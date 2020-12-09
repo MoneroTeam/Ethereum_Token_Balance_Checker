@@ -1,7 +1,6 @@
-import { Contract, providers, utils } from "ethers";
-import { ERC20_ABI } from "../constants/erc20";
+import { providers, utils } from "ethers";
 
-export async function getAddressFromENS(ens) {
+export async function getAddressFromEns(ens) {
   const provider = providers.getDefaultProvider();
   let res;
   try {
@@ -12,7 +11,7 @@ export async function getAddressFromENS(ens) {
   return res;
 }
 
-export async function getENSFromAddress(address) {
+export async function getEnsFromAddress(address) {
   const provider = providers.getDefaultProvider();
   let res;
   try {
