@@ -6,7 +6,7 @@ export const BalanceContextProvider = props => {
   const [state, dispatch] = useReducer(mainReducer, {
     symbol: null,
     balance: null,
-    loading: false,
+    fetching: false,
     failed: false
   });
   return (

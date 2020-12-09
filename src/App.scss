@@ -37,4 +37,8 @@ body {
   .highlight {
     color: #473b7b;
   }
+  .loader {
+    position: relative;
+    margin-top: $space-xl;
+  }
 }

@@ -1,17 +1,19 @@
 import React, { useContext } from "react";
 import { BalanceContext } from "../contexts/balanceContext";
-import { Segment } from "semantic-ui-react";
+import { Segment, Loader } from "semantic-ui-react";
 
 export default function BalanceDisplay() {
   const [state, dispatch] = useContext(BalanceContext);
-  if (state.loading) {
+
+  // loading state
+  if (state.fetching) {
     return (
-      <Segment basic>
-        <div>loading</div>
-      </Segment>
+      <div>
+        <Loader active content="Fetching Token Balance" />
+      </div>
     );
   }
-
+  // no data yet
   if (state.balance === null) {
     if (state.failed) {
       return (

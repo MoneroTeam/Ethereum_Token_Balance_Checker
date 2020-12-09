@@ -8,20 +8,20 @@ export const mainReducer = (state, action) => {
     case IS_FETCHING:
       return {
         ...state,
-        loading: true
+        fetching: true
       };
     case UPDATE_BALANCE:
       const { symbol, balance } = action.payload;
       return {
         ...state,
-        loading: false,
+        fetching: false,
         symbol,
         balance
       };
     case FETCH_FAILED:
       return {
         ...state,
-        loading: false,
+        fetching: false,
         failed: true
       };
     default:
