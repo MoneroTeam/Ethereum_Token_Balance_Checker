@@ -3,7 +3,7 @@ import {
   IS_FETCHING,
   FETCH_FAILED
 } from "../constants/actions";
-export const mainReducer = (state, action) => {
+export const tokenReducer = (state, action) => {
   switch (action.type) {
     case IS_FETCHING:
       return {

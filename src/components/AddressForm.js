@@ -28,7 +28,6 @@ export default function AddressForm() {
         wallet
       });
       dispatch({ type: UPDATE_BALANCE, payload: { symbol, balance } });
-      console.log(symbol, balance);
     } catch (e) {
       dispatch({ type: FETCH_FAILED });
     }
