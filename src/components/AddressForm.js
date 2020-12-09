@@ -13,8 +13,8 @@ import {
 } from "../constants/actions";
 
 export default function AddressForm() {
-  const [address, setAddress] = useState("");
-  const [ens, setEns] = useState("");
+  const [validAddress, setValidAddress] = useState("");
+  const [validEns, setValidEns] = useState("");
   const [state, dispatch] = useContext(BalanceContext);
   const { register, handleSubmit, watch, errors } = useForm({
     mode: "onChange",
@@ -22,8 +22,8 @@ export default function AddressForm() {
   });
 
   const submitForm = async formData => {
-    setAddress("");
-    setEns("");
+    setValidAddress("");
+    setValidEns("");
     const { token, wallet } = formData;
     dispatch({ type: IS_FETCHING });
     let symbol, balance;
@@ -40,18 +40,18 @@ export default function AddressForm() {
 
   const checkForEnsOrAddress = async e => {
     const val = e.target.value;
-    setAddress("");
-    setEns("");
+    setValidAddress("");
+    setValidEns("");
     if (validateEns(val)) {
       let adr = await getAddressFromEns(val);
       if (adr) {
-        setAddress(adr);
+        setValidAddress(adr);
       }
     }
     if (ethersUtil.isAddress(val)) {
       let ens = await getEnsFromAddress(val);
       if (ens) {
-        setEns(ens);
+        setValidEns(ens);
       }
     }
   };
@@ -61,19 +61,19 @@ export default function AddressForm() {
   };
 
   const displayEnsOrAddress = () => {
-    if (address) {
+    if (validAddress) {
       return (
-        <div className="ens-address">
+        <div className="ens-validAddress">
           You entered the ENS for: <br />
-          <span className="highlight">{address}</span>
+          <span className="highlight">{validAddress}</span>
         </div>
       );
     }
-    if (ens) {
+    if (validEns) {
       return (
-        <div className="ens-address">
+        <div className="ens-validAddress">
           You entered the wallet address for: <br />
-          <span lassName="highlight">{ens}</span>
+          <span className="highlight">{validEns}</span>
         </div>
       );
     }
@@ -84,9 +84,10 @@ export default function AddressForm() {
       <Form onSubmit={handleSubmit(submitForm)}>
         <Form.Group widths="3">
           <Form.Field width={6}>
+            <label>Token Adress</label>
             <input
               name="token"
-              placeholder="Token Address"
+              placeholder="Enter Token Address"
               ref={register({
                 required: true,
                 validate: formatCheck
@@ -98,9 +99,10 @@ export default function AddressForm() {
               )}
           </Form.Field>
           <Form.Field width={6}>
+            <label>Wallet Adress</label>
             <input
               name="wallet"
-              placeholder="Wallet Adress"
+              placeholder="Enter Wallet Adress"
               onChange={checkForEnsOrAddress}
               ref={register({
                 required: true,
@@ -109,7 +111,9 @@ export default function AddressForm() {
             />
             {errors.wallet &&
               errors.wallet.type === "validate" && (
-                <div className="error">Please use a valid Ethereum address</div>
+                <div className="error">
+                  Please use a valid Ethereum validAddress
+                </div>
               )}
             {displayEnsOrAddress()}
           </Form.Field>

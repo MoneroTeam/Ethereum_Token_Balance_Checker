@@ -3,7 +3,6 @@ export default function validateEns(input) {
     return false;
   }
   const segs = input.split(".");
-  console.log(segs);
   if (segs.length < 2) {
     return false;
   }

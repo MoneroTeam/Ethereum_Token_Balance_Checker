@@ -41,7 +41,12 @@ body {
     position: relative;
     margin-top: $space-xl;
   }
-  .ens-address {
-    margin-top: $space-md;
+  .form {
+    .field .button {
+      margin-top: 24px;
+    }
+    .ens-address {
+      margin-top: $space-md;
+    }
   }
 }
