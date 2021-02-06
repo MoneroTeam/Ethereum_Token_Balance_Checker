@@ -15,3 +15,5 @@ You will also see any lint errors in the console.
 Built with hooks, which is the best practice for React right now.
 
 I used the native Context API to manage overall application state instead of Redux, because there is only 1 reducer and Redux would be overkill.
+
+There is ENS support for more user friendliness.
